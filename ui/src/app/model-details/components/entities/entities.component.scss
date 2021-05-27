@@ -1,0 +1,13 @@
+
+.entities {
+  display: flex;
+  flex-wrap: wrap;
+
+  .entity {
+    margin: 15px;
+
+    .entity-card {
+      width: 465px;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+
+:host {
+  display: block;
+  padding: 15px;
+}
+
+.title {
+  font-size: 22px;
+  padding-top: 2px;
+  margin-right: 8px;
+}
+
+.actions-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+.back-button {
+  justify-content: left;
+  align-self: flex-start;
+}

@@ -1,0 +1,25 @@
+<form [formGroup]="parentForm">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-subtitle>
+      <p>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" [ngClass]="{'invalid': name.invalid}" formControlName="name">
+        </mat-form-field>
+      </p>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Attributes.
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-attributes [parentForm]="parentForm" [initialData$]="attributes$"></app-attributes>
+      </mat-expansion-panel>
+    </p>
+  </mat-card-content>
+</form>

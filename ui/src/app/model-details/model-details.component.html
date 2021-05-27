@@ -1,0 +1,108 @@
+<ng-container *ngIf="!modelDetailsService.fetching; else loading">
+  <ng-container *ngIf="!modelNotFound; else noData">
+    <form [formGroup]="form">
+      <div class="actions-bar">
+        <button
+          class="back-button"
+          mat-mini-fab
+          color="primary"
+          matTooltip="Navigate to models"
+          (click)="navigateToModels()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <ng-container *ngIf="form.invalid">
+          <ng-container *ngTemplateOutlet="isInvalid; context: { error: 'Form is invalid. Please, check all validations'}" ></ng-container>
+        </ng-container>
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltip="Save"
+          (click)="save()"
+          [disabled]="form.invalid || form.pristine"
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltip="Duplicate"
+          (click)="duplicate()"
+          [disabled]="form.dirty"
+        >
+          <mat-icon>control_point_duplicate</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="warn"
+          matTooltip="Delete"
+          (click)="delete()"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div class="content">
+        <p>
+          <mat-form-field>
+            <mat-label>Model Name</mat-label>
+            <input matInput placeholder="Model Name" formControlName="name">
+            <mat-error *ngIf="name.invalid">Invalid</mat-error>
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-label class="title">Entities</mat-label>
+                <ng-container *ngIf="form.controls.entities?.invalid; else isValid">
+                  <ng-container *ngTemplateOutlet="isInvalid"></ng-container>
+                </ng-container>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-entities [parentForm]="form" [initialData$]="entities$"></app-entities>
+          </mat-expansion-panel>
+        </p>
+
+        <p>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-label class="title">Associations</mat-label>
+                <ng-container *ngIf="form.controls.associations?.invalid; else isValid">
+                  <ng-container *ngTemplateOutlet="isInvalid"></ng-container>
+                </ng-container>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-associations [parentForm]="form" [initialData$]="associations$"></app-associations>
+          </mat-expansion-panel>
+        </p>
+
+      </div>
+    </form>
+  </ng-container>
+</ng-container>
+
+<!--Templates-->
+<ng-template #loading>
+  <div class="loading">
+    Loading model details...
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <div class="loading">
+    No data found.
+    <a [routerLink]="['/models']"> Go to models </a>
+  </div>
+</ng-template>
+
+<ng-template #isValid>
+  <mat-icon class="mat-primary">check</mat-icon>
+</ng-template>
+
+<ng-template #isInvalid let-error="error">
+  <mat-icon [matTooltip]="error" class="mat-warn">error_outline</mat-icon>
+</ng-template>
+
+

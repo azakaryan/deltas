@@ -1,0 +1,36 @@
+
+:host {
+  margin: 16px;
+}
+
+.actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+.header-image {
+  background-image: url('../../assets/model.jpeg');
+  background-size: cover;
+}
+
+mat-card-header {
+  margin-bottom: 12px;
+}
+
+.models {
+  display: flex;
+  flex-wrap: wrap;
+
+  .model {
+    margin: 15px;
+
+    .model-card {
+      width: 465px;
+    }
+  }
+}

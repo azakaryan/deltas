@@ -1,0 +1,175 @@
+tags:
+- name: models
+  description: models API
+
+paths:
+# [GET] models
+  /v1/models:
+    get:
+      tags:
+      - models
+      summary: Find All Models
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+# [POST] models
+    post:
+      tags:
+      - models
+      summary: Create Model
+      parameters:
+      - name: body
+        in: body
+        description: model Data
+        required: true
+        schema:
+          $ref: '#/definitions/ModelModel'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [GET] models/id
+  /v1/models/{id}:
+    get:
+      tags:
+      - models
+      summary: Find Model By Id
+      parameters:
+      - name: id
+        in: path
+        description: Model Id
+        required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [DELETE] models/id
+    delete:
+      tags:
+      - models
+      summary: Delete Model By Id (OUT OF SCOPE)
+      parameters:
+      - name: id
+        in: path
+        description: model Id
+        required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [POST] models/id/deltas
+  /v1/models/{id}/deltas:
+    post:
+      tags:
+        - models
+      summary: |
+        Update Model deltas
+        - Add new element somewhere in the model
+        - Delete element from the model
+        - Change a property of an element in the model
+      parameters:
+        - name: id
+          in: path
+          description: model Id
+          required: true
+        - name: body
+          in: body
+          description: model Datas
+          required: true
+          schema:
+            $ref: '#/definitions/ModelModel'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+# definitions
+definitions:
+  ModelModel:
+    type: object
+    required:
+      - name
+    properties:
+      _id:
+        type: string
+        description: model Id
+      name:
+        type: string
+        description: model Name
+      entities:
+        type: array
+        description: Entities
+        items:
+          $ref: '#/definitions/EntityModel'
+      associations:
+        type: array
+        description: Associations
+        items:
+          $ref: '#/definitions/AssociationModel'
+  AttributeModel:
+    type: object
+    description: Attribute
+    properties:
+      _id:
+        type: string
+        description: Attribute Id
+      name:
+        type: string
+        description: Attribute Name
+      type:
+        type: string
+        description: Attribute Type
+  EntityModel:
+    type: object
+    description: Entity
+    properties:
+      _id:
+        type: string
+        description: entity Id
+      name:
+        type: string
+        description: entity Name
+      attributes:
+        type: array
+        description: Attributes
+        items:
+          $ref: '#/definitions/AttributeModel'
+  AssociationModel:
+    type: object
+    description: Association
+    properties:
+      _id:
+        type: string
+        description: association Id
+      name:
+        type: string
+        description: association Name
+      source:
+        $ref: '#/definitions/EntityModel'
+      target:
+        $ref: '#/definitions/EntityModel'
+
+schemes:
+ - https
+ - http

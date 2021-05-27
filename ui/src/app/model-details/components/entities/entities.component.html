@@ -1,0 +1,23 @@
+<div class="entities">
+  <div class="entity" *ngFor="let control of formArray.controls; let index = index">
+
+    <mat-card class="entity-card">
+      <app-entity-details [parentForm]="control" [entity]="entities[index]"></app-entity-details>
+      <mat-card-actions>
+        <button (click)="removeItem(index)" matTooltip="Remove entity" color="warn" mat-button>Delete</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</div>
+
+<div>
+  <button
+    mat-mini-fab
+    color="primary"
+    matTooltip="Add new entity"
+    (click)="addItem()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

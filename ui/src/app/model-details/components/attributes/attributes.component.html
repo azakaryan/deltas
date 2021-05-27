@@ -1,0 +1,29 @@
+<div class="item" *ngFor="let control of formArray.controls; let index = index">
+  <div class="content">
+    <div class="content-left">
+      <app-attribute-details [parentForm]="control" [attribute]="attributes[index]"></app-attribute-details>
+    </div>
+
+    <div class="content-right">
+      <button
+        mat-mini-fab
+        color="warn"
+        matTooltip="Remove attribute"
+        (click)="removeItem(index)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button
+    mat-mini-fab
+    color="primary"
+    matTooltip="Add attribute"
+    (click)="addItem()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

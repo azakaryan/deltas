@@ -1,0 +1,30 @@
+<div class="item" *ngFor="let control of formArray.controls; let index = index">
+  <div class="content">
+    <div class="content-left">
+      <app-association-details [parentForm]="control" [association]="associations[index]"></app-association-details>
+    </div>
+
+    <div class="content-right">
+      <button
+        mat-mini-fab
+        color="warn"
+        matTooltip="Remove association"
+        (click)="removeItem(index)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button
+    mat-mini-fab
+    color="primary"
+    matTooltip="Add association"
+    (click)="addItem()"
+    [disabled]="!(canAdd$ | async)"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
